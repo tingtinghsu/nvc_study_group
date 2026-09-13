@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第二週・阻礙慈悲的溝通方式｜NVC共學小組簡報</title>
+<style>
+:root{
+  --bg:#f7f1e6; --bg2:#f1e9da; --panel:#ffffff; --panel2:#f6f1e6; --line:#e4dac7;
+  --txt:#33403a; --txt2:#69776f; --txt3:#9aa69d;
+  --acc:#2e6b5a; --acc2:#4c8d78; --acc-soft:#e3efe9;
+  --gir:#b07f22; --gir-soft:#f7ecd4; --wolf:#b65c4d; --wolf-soft:#f6e2dc;
+  --calm:#54809c; --calm-soft:#e3edf3;
+  --shadow:0 6px 24px rgba(90,75,50,.10);
+}
+[data-theme="dark"]{
+  --bg:#161b1d; --bg2:#131719; --panel:#1f2629; --panel2:#242d30; --line:#333f42;
+  --txt:#e9efec; --txt2:#a4b4ac; --txt3:#71807a;
+  --acc:#82c7ab; --acc2:#5da88c; --acc-soft:#22352e;
+  --gir:#dfb663; --gir-soft:#37301d; --wolf:#d98874; --wolf-soft:#3a2723;
+  --calm:#82b3d2; --calm-soft:#20303b;
+  --shadow:0 6px 24px rgba(0,0,0,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--bg); color:var(--txt);
+  font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  overflow:hidden; transition:background .3s,color .3s;
+}
+.deck{position:relative; height:100dvh; width:100vw; display:flex; flex-direction:column}
+
+/* progress bar */
+.progress{height:4px; background:var(--line); flex:none}
+.progress .bar{height:100%; width:0%; background:linear-gradient(90deg,var(--acc),var(--acc2)); transition:width .4s ease}
+
+/* slides */
+.slides{flex:1; position:relative; overflow:hidden}
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column;
+  padding:clamp(20px,4vw,56px) clamp(20px,7vw,110px);
+  overflow-y:auto;
+}
+.slide.active{display:flex; animation:fadeIn .45s ease}
+@keyframes fadeIn{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:translateY(0)}}
+
+.eyebrow{color:var(--acc); font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px}
+.slide h2{font-size:clamp(22px,3.4vw,38px); font-weight:800; line-height:1.35; margin-bottom:10px}
+.slide h2 .num{color:var(--acc); margin-right:8px}
+.lead{color:var(--txt2); font-size:clamp(14px,1.6vw,17px); line-height:1.8; max-width:900px}
+
+.badge{
+  position:absolute; top:clamp(18px,3vw,40px); right:clamp(20px,5vw,60px);
+  background:var(--panel); border:1px solid var(--line); box-shadow:var(--shadow);
+  border-radius:999px; padding:7px 16px; font-size:13px; font-weight:700; color:var(--acc);
+  display:flex; align-items:center; gap:6px; white-space:nowrap;
+}
+
+/* generic content grid */
+.body-wrap{flex:1; display:flex; flex-direction:column; justify-content:center; gap:22px; margin-top:14px; max-width:1180px}
+.grid{display:grid; gap:16px}
+.grid.g2{grid-template-columns:1fr 1fr}
+.grid.g4{grid-template-columns:repeat(4,1fr)}
+
+.card{
+  background:var(--panel); border:1px solid var(--line); border-radius:18px;
+  padding:20px 22px; box-shadow:var(--shadow);
+}
+.card h3{font-size:16.5px; font-weight:800; margin-bottom:8px; display:flex; align-items:center; gap:8px}
+.card p{color:var(--txt2); font-size:14.5px; line-height:1.75}
+.card.wolf{background:var(--wolf-soft); border-color:transparent}
+.card.wolf h3{color:var(--wolf)}
+.card.gir{background:var(--gir-soft); border-color:transparent}
+.card.gir h3{color:var(--gir)}
+.card.calm{background:var(--calm-soft); border-color:transparent}
+.card.calm h3{color:var(--calm)}
+.card.acc{background:var(--acc-soft); border-color:transparent}
+.card.acc h3{color:var(--acc)}
+
+.tag{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:700; padding:4px 12px; border-radius:999px; margin-bottom:14px}
+.tag.wolf{background:var(--wolf-soft); color:var(--wolf)}
+.tag.gir{background:var(--gir-soft); color:var(--gir)}
+.tag.calm{background:var(--calm-soft); color:var(--calm)}
+.tag.acc{background:var(--acc-soft); color:var(--acc)}
+
+/* cover */
+.cover{justify-content:center; align-items:flex-start; gap:14px; background:
+  radial-gradient(circle at 85% 12%, var(--acc-soft), transparent 55%),
+  radial-gradient(circle at 8% 90%, var(--gir-soft), transparent 50%);
+}
+.cover .emoji{font-size:56px; margin-bottom:6px}
+.cover h1{font-size:clamp(30px,5.4vw,58px); font-weight:800; line-height:1.28}
+.cover h1 .sub{display:block; font-size:clamp(15px,2vw,20px); font-weight:500; color:var(--acc); letter-spacing:1px; margin-top:10px}
+.cover .meta-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:22px}
+.pill{background:var(--panel); border:1px solid var(--line); box-shadow:var(--shadow); border-radius:999px; padding:9px 18px; font-size:13.5px; font-weight:600; color:var(--txt2); display:flex; align-items:center; gap:7px}
+
+/* agenda path */
+.path{display:flex; align-items:flex-start; justify-content:space-between; gap:6px; margin-top:10px; flex-wrap:wrap}
+.path .stop{flex:1; min-width:120px; text-align:center; position:relative; padding-top:8px}
+.path .stop .dot{
+  width:44px; height:44px; border-radius:50%; margin:0 auto 10px; display:flex; align-items:center; justify-content:center;
+  font-size:19px; font-weight:800; color:#fff; background:var(--acc); box-shadow:var(--shadow);
+}
+.path .stop:nth-child(2n) .dot{background:var(--gir)}
+.path .stop b{display:block; font-size:14.5px; margin-bottom:3px}
+.path .stop span{color:var(--txt2); font-size:12.5px}
+.path .stop .time{display:inline-block; margin-top:6px; font-size:11.5px; font-weight:700; color:var(--acc); background:var(--acc-soft); border-radius:999px; padding:2px 10px}
+.path .line{flex:none; width:100%; height:2px; background:repeating-linear-gradient(90deg,var(--line) 0 8px, transparent 8px 14px); margin-top:22px; display:none}
+@media(min-width:760px){.path .line{display:block; width:24px; margin-top:22px}}
+
+/* meditation script */
+.script{
+  background:var(--panel2); border:1px solid var(--line); border-radius:20px; padding:clamp(20px,3vw,40px);
+  max-height:56vh; overflow-y:auto; box-shadow:var(--shadow);
+}
+.script p{text-align:center; font-size:clamp(14px,1.7vw,17.5px); line-height:2.1; color:var(--txt); margin-bottom:14px}
+.script p.pause{color:var(--acc); font-weight:700; letter-spacing:2px; font-size:13px}
+.script p.music{color:var(--gir); font-weight:600}
+
+.note{
+  background:var(--gir-soft); border-radius:14px; padding:14px 18px; font-size:13.5px; color:var(--txt);
+  display:flex; gap:10px; align-items:flex-start; box-shadow:var(--shadow); max-width:520px;
+}
+.note b{color:var(--gir)}
+
+.steps{display:flex; flex-direction:column; gap:10px}
+.step{display:flex; gap:14px; align-items:flex-start}
+.step .n{
+  flex:none; width:30px; height:30px; border-radius:50%; background:var(--calm); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;
+}
+.step p{color:var(--txt2); font-size:14px; line-height:1.7}
+.step p b{color:var(--txt)}
+
+.qlist{display:flex; flex-direction:column; gap:14px}
+.qlist .card{display:flex; gap:14px; align-items:flex-start}
+.qlist .qn{flex:none; width:32px; height:32px; border-radius:10px; background:var(--acc); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800}
+
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+
+.pageref{font-size:12px; color:var(--txt3); margin-top:4px}
+
+/* empathy card deck */
+.guess-box{background:var(--panel2); border:1px dashed var(--line); border-radius:14px; padding:14px 18px; font-size:14.5px; color:var(--txt2); min-height:20px; line-height:1.7}
+.guess-box b{color:var(--acc)}
+.deck-toolbar{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px}
+.deck-tabs{display:flex; gap:8px}
+.deck-tabs button{border:1px solid var(--line); background:var(--panel); border-radius:999px; padding:8px 16px; font-size:13.5px; font-weight:700; color:var(--txt2); cursor:pointer; transition:.15s}
+.deck-tabs button.on{background:var(--acc); border-color:var(--acc); color:#fff}
+.deck-actions{display:flex; gap:8px}
+.chipbtn{border:1px solid var(--line); background:var(--panel); border-radius:999px; padding:7px 14px; font-size:12.5px; font-weight:700; color:var(--acc); cursor:pointer; box-shadow:var(--shadow)}
+.chipbtn:hover{background:var(--acc-soft)}
+.card-strip{flex:1; min-height:0; overflow-y:auto; display:flex; flex-wrap:wrap; align-content:flex-start; gap:8px; padding:4px 2px 8px}
+.mini-card{border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:9px 6px; width:104px; text-align:center; cursor:pointer; transition:.15s; box-shadow:0 2px 6px rgba(90,75,50,.06)}
+.mini-card:hover{transform:translateY(-2px); box-shadow:var(--shadow)}
+.mini-card .en{display:block; font-size:10.5px; color:var(--txt3); font-weight:600}
+.mini-card .zh{display:block; font-size:14px; font-weight:800; margin-top:2px}
+.mini-card.met{border-top:3px solid var(--acc2)}
+.mini-card.unmet{border-top:3px solid var(--wolf)}
+.mini-card.sel{background:var(--acc); border-color:var(--acc)}
+.mini-card.sel .en,.mini-card.sel .zh{color:#fff}
+.legend{display:flex; gap:16px; font-size:11.5px; color:var(--txt3)}
+.legend span{display:inline-flex; align-items:center; gap:5px}
+.legend i{width:10px; height:10px; border-radius:3px; display:inline-block}
+
+/* hud */
+.hud{
+  position:absolute; left:0; right:0; bottom:0; height:64px; display:flex; align-items:center; justify-content:center;
+  gap:18px; background:linear-gradient(0deg, var(--bg) 55%, transparent);
+}
+.navbtn{
+  width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background:var(--panel);
+  color:var(--acc); font-size:20px; cursor:pointer; box-shadow:var(--shadow); display:flex; align-items:center; justify-content:center;
+  transition:.15s;
+}
+.navbtn:hover{background:var(--acc); color:#fff}
+.navbtn:disabled{opacity:.35; cursor:default; background:var(--panel); color:var(--acc)}
+.dots{display:flex; gap:9px; align-items:center}
+.dots button{
+  border:none; background:var(--line); width:9px; height:9px; border-radius:50%; cursor:pointer; padding:0;
+  transition:.2s; position:relative;
+}
+.dots button.on{background:var(--acc); width:24px; border-radius:6px}
+.dots .lbl{
+  position:absolute; bottom:16px; left:50%; transform:translateX(-50%); font-size:11px; color:var(--txt2);
+  white-space:nowrap; opacity:0; transition:.15s; pointer-events:none;
+}
+.dots button:hover .lbl{opacity:1}
+
+.meta{position:absolute; top:14px; left:20px; right:20px; display:flex; justify-content:space-between; align-items:center; pointer-events:none; z-index:5}
+.meta *{pointer-events:auto}
+.counter{font-size:12.5px; color:var(--txt3); font-weight:600; background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:5px 13px}
+.iconbtn{
+  width:34px; height:34px; border-radius:50%; border:1px solid var(--line); background:var(--panel); cursor:pointer;
+  font-size:15px; display:flex; align-items:center; justify-content:center; color:var(--txt2); box-shadow:var(--shadow);
+}
+.metabtns{display:flex; gap:8px}
+
+.foot{font-size:11.5px; color:var(--txt3); margin-top:auto; padding-top:18px}
+
+@media(max-width:760px){
+  .grid.g2,.grid.g4,.two-col{grid-template-columns:1fr}
+  .cover .emoji{font-size:42px}
+  .path{flex-direction:column}
+  .path .stop{min-width:0}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <div class="meta">
+    <span class="counter" id="counter">1 / 12</span>
+    <div class="metabtns">
+      <button class="iconbtn" id="themeBtn" title="日夜模式">🌙</button>
+      <button class="iconbtn" id="fsBtn" title="全螢幕">⛶</button>
+    </div>
+  </div>
+
+  <div class="slides" id="slides">
+
+    <!-- 0 cover -->
+    <section class="slide cover" data-section="cover">
+      <div class="emoji">🦒🐺</div>
+      <h1>阻礙慈悲的溝通方式<span class="sub">第二週・NVC 共學小組</span></h1>
+      <p class="lead">看見人類天生的慈悲，也看見讓我們與生命疏離的說話習慣：道德評判、比較、否認選擇的責任、命令。</p>
+      <div class="meta-row">
+        <span class="pill">🗓️ 9/13（日）20:00-21:00</span>
+        <span class="pill">⏱ 60 分鐘分享版</span>
+        <span class="pill">👥 5 人小組</span>
+      </div>
+    </section>
+
+    <!-- 1 agenda -->
+    <section class="slide" data-section="agenda">
+      <div class="eyebrow">流程總覽</div>
+      <h2>今晚的 60 分鐘</h2>
+      <p class="lead"></p>
+      <div class="body-wrap">
+        <div class="path">
+          <div class="stop"><div class="dot">1</div><b>歡迎與<br>氣象報告</b><span class="time">5 分</span></div>
+          <div class="line"></div>
+          <div class="stop"><div class="dot">2</div><b>引導下<br>的默想</b><span class="time">5 分</span></div>
+          <div class="line"></div>
+          <div class="stop"><div class="dot">3</div><b>分享</b><span class="time">8 分</span></div>
+          <div class="line"></div>
+          <div class="stop"><div class="dot">4</div><b>本週焦點</b><span class="time">12 分</span></div>
+          <div class="line"></div>
+          <div class="stop"><div class="dot">5</div><b>一起練習</b><span class="time">15 分</span></div>
+          <div class="line"></div>
+          <div class="stop"><div class="dot">6</div><b>結束慶祝</b><span class="time">5 分</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2 welcome -->
+    <section class="slide" data-section="welcome">
+      <div class="badge">⏱ 5 分鐘</div>
+      <div class="eyebrow">一・歡迎與氣象報告</div>
+      <h2>此刻，我的天氣是……</h2>
+      <div class="body-wrap">
+        <div class="card acc" style="max-width:640px">
+          <h3>☀️ 邀請每位夥伴</h3>
+          <p>用簡短的一、兩句話描述當下自己的感受，像播報天氣一樣，晴、陰、有點小雨都可以。不一定要解釋原因，只是先讓大家知道你現在的狀態。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 meditation -->
+    <section class="slide" data-section="meditation">
+      <div class="badge">⏱ 5 分鐘</div>
+      <div class="eyebrow">二・引導下的靜心</div>
+      <h2>先安靜下來完全臨在於此刻</h2>
+      <div class="body-wrap" style="margin-top:6px; gap:14px">
+        <div class="note">🎵 <span><b>小提示：</b>跟著音樂和引導語，好好感受自己的內心</span></div>
+        <div class="script">
+          <p>在開始分享前，我們先花一點時間安靜我們的意念與心靈，好能完全臨在於此刻。</p>
+          <p class="music"></p>
+          <p class="pause">－ 停頓 －</p>
+          <p>請試試看，放掉任何可能有的擔憂、煩惱，注意你的呼吸的韻律，感受你整個身體開始放鬆。</p>
+          <p>感受空氣接觸你的皮膚……感受你坐在椅子上的體重……</p>
+          <p>讓你肩膀和背後的緊繃感漸漸散掉……溫柔地把你全部的注意力帶到此刻……</p>
+          <p class="pause">－ 停頓 －</p>
+          <p>想想我們從上次見面後你停留過的地方，廚房、工作場所、公園、捷運……</p>
+          <p>想想你生活中的人們，家人、朋友、老師、導師、同事、碰到的陌生人……</p>
+          <p>回想你與某人感受有連結的時刻，即使是小事……注意你的感受和需要……</p>
+          <p class="pause">－ 停頓 －</p>
+          <p>有沒有注意到自己評判別人做「錯」事的時刻？你有沒有覺察你拿自己與別人比較？</p>
+          <p>有沒有你做的事或你往來的人，是因為你「非做不可」？因為你告訴自己「沒有選擇」？</p>
+          <p>覺察在你內心升起的任何感受和需要……</p>
+          <p class="pause">－ 停頓 －</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 share -->
+    <section class="slide" data-section="share">
+      <div class="badge">⏱ 8 分鐘</div>
+      <div class="eyebrow">三・分享</div>
+      <h2>從上次聚會以來……</h2>
+      <div class="body-wrap">
+        <div class="card acc" style="max-width:680px">
+          <h3>💬 一起回顧</h3>
+          <p>我們用一點時間彼此分享從上次聚會以來練習非暴力溝通的經驗。5 個人，每人 1~2 分鐘。（觀察、感受、注意自己的需要、注意他人的需要、請求）</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 focus intro -->
+    <section class="slide" data-section="focus">
+      <div class="badge">⏱ 6 分鐘</div>
+      <div class="eyebrow">四・練習焦點（上）</div>
+      <h2>慈悲天性，還是需要被控制？</h2>
+      <div class="body-wrap">
+        <p class="lead">本週的章節，盧森堡博士強調看見人類慈悲天性的重要性，這與一般認為人是天生邪惡、匱乏，因而需要被控制的看法，成為對比。這種「與生命疏離的溝通方式」，本質上是被社會化，仰賴外在權威來定義什麼是「好」與「壞」；相對的，非暴力溝通幫助我們被自己內在的感受和需要／價值所引導。</p>
+        <div>
+          <span class="tag wolf">🐺 這章提到的四種疏離溝通</span>
+          <div class="grid g4">
+            <div class="card wolf"><h3>⚖️ 道德評判</h3><p>意味人們是錯的或壞的。</p></div>
+            <div class="card wolf"><h3>📏 比較</h3><p>拿自己或別人去跟另一個人比較。</p></div>
+            <div class="card wolf"><h3>🙅 否認選擇的責任</h3><p>「我沒辦法」「我必須」，或說是別人造成我們的反應，例如「你讓我有罪惡感」。</p></div>
+            <div class="card wolf"><h3>📢 命令</h3><p>用命令的方式要求對方。</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 focus discussion -->
+    <section class="slide" data-section="focus">
+      <div class="badge">⏱ 6 分鐘</div>
+      <div class="eyebrow">四・練習焦點（下）</div>
+      <h2>討論題目</h2>
+      <div class="body-wrap">
+        <div class="qlist" style="max-width:820px">
+          <div class="card"><span class="qn">1</span><p style="margin-top:2px">價值判斷與道德判斷有何不同？</p></div>
+          <div class="card"><span class="qn">2</span><p style="margin-top:2px">當人們出於恐懼、內疚或羞愧而去做我們要他們做的事情時，會怎麼樣？當別人在腦海裡把我們與恐懼、內疚或羞愧的感受聯想在一起時，未來可能會發生什麼？</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 practice3 main -->
+    <section class="slide" data-section="practice">
+      <div class="badge">⏱ 15 分鐘・主活動</div>
+      <div class="eyebrow">五・一起練習</div>
+      <h2>把疏離的思想和說話方式翻譯出來</h2>
+      <div class="body-wrap">
+        <div class="note">👥 <span><b>討論</b>：舉例以下幾項，然後把例子翻譯成單純的觀察。</span></div>
+        <div class="grid g4">
+          <div class="card calm"><h3>📏 比較</h3><p>你把一個人或某件事，跟別人比較而評論的方式。</p></div>
+          <div class="card calm"><h3>🏷️ 貼標籤</h3><p>你可能對一個人或情況做的命名。</p></div>
+          <div class="card calm"><h3>📖 信念</h3><p>你認為是真的、或「正確」的事。</p></div>
+          <div class="card calm"><h3>😨 恐懼想法</h3><p>告訴自己是「危險的」「痛苦的」，或是你「不想發生」的事。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 bonus practice 1/2 -->
+    <section class="slide" data-section="practice">
+      <div class="badge"></div>
+      <div class="eyebrow">五・一起練習</div>
+      <h2>你有什麼毛病？／我有什麼問題？</h2>
+      <div class="body-wrap" style="margin-top:4px">
+        <div class="two-col">
+          <div class="card gir">
+            <h3>練習1・你有什麼毛病嗎？</h3>
+            <div class="steps">
+              <div class="step"><span class="n">1</span><p>寫下一個會讓你對自己說「這個人有什麼毛病？」的人或情境。</p></div>
+              <div class="step"><span class="n">2</span><p>留意是什麼樣的狀況會引發你這樣的想法（例如：懶惰、蠢笨、遲鈍）。</p></div>
+              <div class="step"><span class="n">3</span><p>寫下藏在這個評判後面的<b>需要／價值</b>，保持身體放鬆，注意自己的感受。</p></div>
+              <div class="step"><span class="n">4</span><p>小組分享。</p></div>
+            </div>
+          </div>
+          <div class="card gir">
+            <h3>練習2・我有什麼問題？</h3>
+            <div class="steps">
+              <div class="step"><span class="n">1</span><p>當你做錯了或忘了什麼事時，你會對自己說什麼？例如「我怎麼會這麼笨！」</p></div>
+              <div class="step"><span class="n">2</span><p>那樣想的時候，你腦中的感受和想法是怎麼一回事？</p></div>
+              <div class="step"><span class="n">3</span><p>寫下藏在這些評判後面的<b>需要及價值</b>，保持身體放鬆。</p></div>
+              <div class="step"><span class="n">4</span><p>小組內分享。</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 practice4 empathy cards -->
+    <section class="slide" data-section="practice">
+      <div class="badge">🎴 互動練習</div>
+      <div class="eyebrow">五・一起練習・練習4</div>
+      <h2>同理心傾聽卡牌</h2>
+      <div class="body-wrap" style="margin-top:4px; gap:12px">
+        <div class="note">👂 <span><b>3-4 人小組</b>：一人分享一個情況，其他人從卡牌中選一張感受、一張需要，猜猜看他／她的心情，說給對方聽聽看。</span></div>
+        <div class="guess-box" id="guessText">點選一張感受卡、一張需要卡，組成一句同理猜測。</div>
+        <div class="deck-toolbar">
+          <div class="deck-tabs">
+            <button id="tabFeeling" class="on">💛 感受卡</button>
+            <button id="tabNeed">🧭 需要卡</button>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap">
+            <div class="legend" id="legend">
+              <span><i style="background:var(--acc2)"></i>需要被滿足時</span>
+              <span><i style="background:var(--wolf)"></i>需要未被滿足時</span>
+            </div>
+            <div class="deck-actions">
+              <button id="shuffleBtn" class="chipbtn">🎲 隨機抽一張</button>
+              <button id="clearBtn" class="chipbtn">↺ 清除</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-strip" id="cardStrip"></div>
+      </div>
+    </section>
+
+    <!-- 10 celebrate -->
+    <section class="slide" data-section="celebrate">
+      <div class="badge">⏱ 5 分鐘</div>
+      <div class="eyebrow">六・結束慶祝</div>
+      <h2>今天，滿足了什麼需要？</h2>
+      <div class="body-wrap">
+        <div class="card acc" style="max-width:640px">
+          <h3>🎉 邀請每位成員</h3>
+          <p>說一說今天這場聚會，滿足了自己什麼「需要」，用這個做為結束的慶祝。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 closing -->
+    <section class="slide cover" data-section="closing">
+      <div class="emoji">🙏</div>
+      <h1>謝謝這一小時的真心<span class="sub">下次見・10/4（日）20:00-21:30・仁穎帶領</span></h1>
+      <p class="lead">願我們都能多看見一點在評判、比較、命令底下，一直想「被聽見」的需要。</p>
+      <p class="foot">教材出處：NVC 共學小組第二週講義（自製教材，僅供小組內部使用，不對外散布）。</p>
+    </section>
+
+  </div>
+
+  <div class="hud">
+    <button class="navbtn" id="prevBtn">‹</button>
+    <div class="dots" id="dots"></div>
+    <button class="navbtn" id="nextBtn">›</button>
+  </div>
+</div>
+
+<script>
+const slidesEl = document.querySelectorAll('.slide');
+const total = slidesEl.length;
+let idx = 0;
+
+const dotSections = [
+  {key:'welcome', label:'歡迎'},
+  {key:'meditation', label:'默想'},
+  {key:'share', label:'分享'},
+  {key:'focus', label:'焦點'},
+  {key:'practice', label:'練習'},
+  {key:'celebrate', label:'慶祝'},
+];
+const dotsWrap = document.getElementById('dots');
+dotSections.forEach(sec=>{
+  const b = document.createElement('button');
+  b.dataset.key = sec.key;
+  const lbl = document.createElement('span');
+  lbl.className='lbl'; lbl.textContent=sec.label;
+  b.appendChild(lbl);
+  b.addEventListener('click', ()=>{
+    const target = [...slidesEl].findIndex(s=>s.dataset.section===sec.key);
+    if(target>-1) go(target);
+  });
+  dotsWrap.appendChild(b);
+});
+
+const bar = document.getElementById('bar');
+const counter = document.getElementById('counter');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+function render(){
+  slidesEl.forEach((s,i)=>s.classList.toggle('active', i===idx));
+  bar.style.width = ((idx)/(total-1)*100)+'%';
+  counter.textContent = (idx+1)+' / '+total;
+  prevBtn.disabled = idx===0;
+  nextBtn.disabled = idx===total-1;
+  const curSection = slidesEl[idx].dataset.section;
+  [...dotsWrap.children].forEach(b=>b.classList.toggle('on', b.dataset.key===curSection));
+}
+function go(i){ idx = Math.max(0, Math.min(total-1, i)); render(); }
+
+prevBtn.addEventListener('click', ()=>go(idx-1));
+nextBtn.addEventListener('click', ()=>go(idx+1));
+document.addEventListener('keydown', e=>{
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){ e.preventDefault(); go(idx+1); }
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); go(idx-1); }
+  if(e.key==='Home') go(0);
+  if(e.key==='End') go(total-1);
+});
+
+let touchX=null;
+document.addEventListener('touchstart', e=>{ touchX = e.touches[0].clientX; });
+document.addEventListener('touchend', e=>{
+  if(touchX===null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if(Math.abs(dx)>50) go(idx + (dx<0?1:-1));
+  touchX=null;
+});
+
+document.getElementById('fsBtn').addEventListener('click', ()=>{
+  if(!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen();
+});
+
+const themeBtn = document.getElementById('themeBtn');
+function applyTheme(t){
+  document.documentElement.dataset.theme = t;
+  themeBtn.textContent = t==='dark' ? '☀️' : '🌙';
+  localStorage.setItem('nvc-ch2-theme', t);
+}
+applyTheme(localStorage.getItem('nvc-ch2-theme') || 'light');
+themeBtn.addEventListener('click', ()=>{
+  applyTheme(document.documentElement.dataset.theme==='dark' ? 'light' : 'dark');
+});
+
+render();
+
+/* ---------- empathy card deck (練習4) ---------- */
+const NEED_CARDS = [
+  {en:'Acceptance',zh:'接納'},{en:'Accountability',zh:'負責任'},{en:'Acknowledgement',zh:'承認'},
+  {en:'Affection',zh:'情感'},{en:'Appreciation',zh:'感激'},{en:'Authenticity',zh:'真誠'},
+  {en:'Autonomy and Choice',zh:'自主和選擇'},{en:'Balance',zh:'平衡'},{en:'Beauty and Aesthetics',zh:'美與審美'},
+  {en:'Celebration',zh:'慶祝'},{en:'Clarity',zh:'清晰'},{en:'Community',zh:'社群'},
+  {en:'Compassion and Empathy',zh:'慈悲和同理心'},{en:'Competence',zh:'有能力'},{en:'Congruence',zh:'一致性'},
+  {en:'Connection',zh:'連結'},{en:'Consideration',zh:'體貼'},{en:'Contribution',zh:'貢獻'},
+  {en:'Creativity',zh:'創造力'},{en:'Dependability',zh:'可靠性'},{en:'Dignity',zh:'尊嚴'},
+  {en:'Ease and Comfort',zh:'輕鬆和舒適'},{en:'Effectiveness',zh:'效益'},{en:'Efficiency',zh:'效率'},
+  {en:'Equality',zh:'平等'},{en:'Flexibility',zh:'靈活性'},{en:'Freedom',zh:'自由'},
+  {en:'Friendship',zh:'友誼'},{en:'Harmony',zh:'和諧'},{en:'Health and Well-being',zh:'健康和福祉'},
+  {en:'Help and Support',zh:'幫助和支持'},{en:'Honesty',zh:'誠實'},{en:'Hope',zh:'希望'},
+  {en:'Inclusion',zh:'包容'},{en:'Inspiration',zh:'啟發'},{en:'Integrity',zh:'表裡如一'},
+  {en:'Intimacy',zh:'親密'},{en:'Kindness',zh:'仁慈'},{en:'Learning and Growth',zh:'學習和成長'},
+  {en:'Love',zh:'愛'},{en:'Meaning and Purpose',zh:'意義和目的'},{en:'Mourning',zh:'哀悼'},
+  {en:'Movement',zh:'運動'},{en:'Nurturance',zh:'滋養'},{en:'Order',zh:'秩序'},
+  {en:'Participation',zh:'參與'},{en:'Peace',zh:'和平'},{en:'Play and Fun',zh:'玩耍和樂趣'},
+  {en:'Power in Your World',zh:'意志力'},{en:'Predictability',zh:'可預見性'},{en:'Privacy',zh:'隱私'},
+  {en:'Protection',zh:'保護'},{en:'Reassurance',zh:'安心'},{en:'Respect',zh:'尊重'},
+  {en:'Responsibility',zh:'責任感'},{en:'Rest and Relaxation',zh:'休息和放鬆'},{en:'Safety',zh:'安全'},
+  {en:'Security',zh:'保證'},{en:'Self-expression',zh:'自我表達'},{en:'Shared Reality',zh:'共用現實'},
+  {en:'Space',zh:'空間'},{en:'Spontaneity',zh:'自發性'},{en:'Stimulation',zh:'激勵'},
+  {en:'Structure',zh:'組織'},{en:'To Be Heard',zh:'被聽見'},{en:'To Be Seen',zh:'被看見'},
+  {en:'To Have Your Intentions Seen',zh:'關注'},{en:'To Matter and Belong',zh:'被重視和歸屬感'},
+  {en:'Trust',zh:'信任'},{en:'Understanding',zh:'理解'},
+];
+const FEELING_CARDS = [
+  {en:'Affectionate',zh:'親切',type:'met'},{en:'Amazed',zh:'驚奇',type:'met'},{en:'Calm',zh:'平靜',type:'met'},
+  {en:'Comfortable',zh:'舒適',type:'met'},{en:'Content',zh:'滿足',type:'met'},{en:'Curious',zh:'好奇',type:'met'},
+  {en:'Delighted',zh:'歡快',type:'met'},{en:'Ecstatic',zh:'欣喜若狂',type:'met'},{en:'Encouraged',zh:'得到鼓勵',type:'met'},
+  {en:'Energetic',zh:'充滿活力',type:'met'},{en:'Enthusiastic',zh:'有朝氣',type:'met'},{en:'Excited',zh:'興奮',type:'met'},
+  {en:'Grateful',zh:'感謝',type:'met'},{en:'Happy',zh:'快樂',type:'met'},{en:'Hopeful',zh:'滿懷希望',type:'met'},
+  {en:'Inspired',zh:'受啟發',type:'met'},{en:'Interested',zh:'感興趣',type:'met'},{en:'Intrigued',zh:'著迷',type:'met'},
+  {en:'Joyful',zh:'喜悅',type:'met'},{en:'Open',zh:'心態開放',type:'met'},{en:'Optimistic',zh:'樂觀',type:'met'},
+  {en:'Peaceful',zh:'心平氣和',type:'met'},{en:'Relaxed',zh:'放鬆',type:'met'},{en:'Relieved',zh:'如釋重負',type:'met'},
+  {en:'Satisfied',zh:'滿意',type:'met'},{en:'Tender',zh:'溫柔',type:'met'},{en:'Thankful',zh:'感恩',type:'met'},
+  {en:'Angry',zh:'生氣',type:'unmet'},{en:'Annoyed',zh:'惱火',type:'unmet'},{en:'Anxious',zh:'焦慮',type:'unmet'},
+  {en:'Ashamed',zh:'慚愧',type:'unmet'},{en:'Bored',zh:'無聊',type:'unmet'},{en:'Concerned',zh:'擔憂',type:'unmet'},
+  {en:'Confused',zh:'困惑',type:'unmet'},{en:'Depressed',zh:'沮喪',type:'unmet'},{en:'Disappointment',zh:'失望',type:'unmet'},
+  {en:'Discombobulated',zh:'灰心',type:'unmet'},{en:'Discouraged',zh:'洩氣',type:'unmet'},{en:'Embarrassed',zh:'尷尬',type:'unmet'},
+  {en:'Envious',zh:'羨慕',type:'unmet'},{en:'Exhausted',zh:'精疲力竭',type:'unmet'},{en:'Frustrated',zh:'挫折',type:'unmet'},
+  {en:'Furious',zh:'暴怒',type:'unmet'},{en:'Grumpy',zh:'暴躁不安',type:'unmet'},{en:'Hurt',zh:'受傷',type:'unmet'},
+  {en:'Impatient',zh:'不耐煩',type:'unmet'},{en:'Indifferent',zh:'興趣缺缺',type:'unmet'},{en:'Irritated',zh:'心煩',type:'unmet'},
+  {en:'Lonely',zh:'寂寞',type:'unmet'},{en:'Moody',zh:'喜怒無常',type:'unmet'},{en:'Numb',zh:'麻木',type:'unmet'},
+  {en:'Overwhelmed',zh:'承受不了',type:'unmet'},{en:'Puzzled',zh:'茫然',type:'unmet'},{en:'Reluctant',zh:'不情願',type:'unmet'},
+  {en:'Resentful',zh:'厭惡',type:'unmet'},{en:'Sad',zh:'悲傷',type:'unmet'},{en:'Scared',zh:'驚嚇',type:'unmet'},
+  {en:'Sensitive',zh:'敏感',type:'unmet'},{en:'Shocked',zh:'震驚',type:'unmet'},{en:'Stressed',zh:'有壓力',type:'unmet'},
+  {en:'Surprised',zh:'驚訝',type:'unmet'},{en:'Tense',zh:'緊張',type:'unmet'},{en:'Thrilled',zh:'激動',type:'unmet'},
+  {en:'Tired',zh:'疲倦',type:'unmet'},{en:'Torn',zh:'糾結',type:'unmet'},{en:'Troubled',zh:'為難',type:'unmet'},
+  {en:'Uncomfortable',zh:'不舒服',type:'unmet'},{en:'Upset',zh:'惱怒',type:'unmet'},{en:'Vulnerable',zh:'脆弱',type:'unmet'},
+  {en:'Worried',zh:'擔心',type:'unmet'},
+];
+
+let activeDeck = 'feeling';
+const picked = {feeling:null, need:null};
+const cardStrip = document.getElementById('cardStrip');
+const guessText = document.getElementById('guessText');
+const tabFeeling = document.getElementById('tabFeeling');
+const tabNeed = document.getElementById('tabNeed');
+const legend = document.getElementById('legend');
+
+function currentList(){ return activeDeck==='feeling' ? FEELING_CARDS : NEED_CARDS; }
+
+function renderDeck(){
+  cardStrip.innerHTML = '';
+  currentList().forEach(item=>{
+    const b = document.createElement('button');
+    b.className = 'mini-card' + (item.type ? ' '+item.type : '');
+    if(picked[activeDeck] === item) b.classList.add('sel');
+    b.innerHTML = `<span class="en">${item.en}</span><span class="zh">${item.zh}</span>`;
+    b.addEventListener('click', ()=>{
+      picked[activeDeck] = (picked[activeDeck] === item) ? null : item;
+      renderDeck();
+      renderGuess();
+    });
+    cardStrip.appendChild(b);
+  });
+}
+function renderGuess(){
+  const f = picked.feeling, n = picked.need;
+  if(f || n){
+    guessText.innerHTML = `你是不是感到<b>${f ? f.zh : '……'}</b>，因為需要<b>${n ? n.zh : '……'}</b>？`;
+  } else {
+    guessText.textContent = '點選一張感受卡、一張需要卡，組成一句同理猜測。';
+  }
+}
+tabFeeling.addEventListener('click', ()=>{
+  activeDeck='feeling'; tabFeeling.classList.add('on'); tabNeed.classList.remove('on');
+  legend.style.visibility='visible'; renderDeck();
+});
+tabNeed.addEventListener('click', ()=>{
+  activeDeck='need'; tabNeed.classList.add('on'); tabFeeling.classList.remove('on');
+  legend.style.visibility='hidden'; renderDeck();
+});
+document.getElementById('shuffleBtn').addEventListener('click', ()=>{
+  const list = currentList();
+  picked[activeDeck] = list[Math.floor(Math.random()*list.length)];
+  renderDeck(); renderGuess();
+  requestAnimationFrame(()=>{
+    const sel = cardStrip.querySelector('.mini-card.sel');
+    if(sel) sel.scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+  });
+});
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  picked.feeling = null; picked.need = null; renderDeck(); renderGuess();
+});
+renderDeck();
+</script>
+</body>
+</html>
